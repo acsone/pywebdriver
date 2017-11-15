@@ -8,8 +8,8 @@ pyserial
 pif
 Pillow
 netifaces
-pycups
 promise
+#pycups
 mock
 # temporary desactivate because of a xmlescpos pip issue
 #xmlescpos
