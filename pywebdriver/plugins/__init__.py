@@ -4,7 +4,7 @@ from ConfigParser import NoOptionError
 from importlib import import_module
 
 DEFAULT_DRIVERS = [
-    'cups_driver',
+    #'cups_driver',
     'display_driver',
     'escpos_driver',
     'serial_driver',
