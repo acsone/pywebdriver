@@ -9,5 +9,6 @@ pif
 Pillow
 netifaces
 pycups
+promise
 # temporary desactivate because of a xmlescpos pip issue
 #xmlescpos
