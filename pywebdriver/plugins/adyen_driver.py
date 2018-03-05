@@ -34,6 +34,7 @@ from .adyen_c_link import ADYPEDResultUnfinishedTender,\
                           ADYCreateTenderStatusCreated,\
                           ADYboolTrue,\
                           ADYEnvironmentTest,\
+                          ADYEnvironmentLive,\
                           ADYLibraryResultOk,\
                           ADYPSPResultCodeOk,\
                           ADYPSPResultCodeRegistered,\
@@ -215,7 +216,7 @@ class AdyenDriver(ThreadDriver):
         mylib.library_log = app_logger
         mylib.libraryRetainsVariables = ADYboolTrue
         mylib.logArea = 0x7fff
-        mylib.environment = ADYEnvironmentTest
+        mylib.environment = ADYEnvironmentLive
         mylib.pos_name = String(self.cfg['pos_name'])
         mylib.app_name = String(self.cfg['app_name'])
         mylib.app_id = String(self.cfg['app_id'])
