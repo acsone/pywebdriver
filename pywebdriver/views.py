@@ -33,7 +33,7 @@ except ImportError:  # pip<10
 from flask import render_template
 from flask_babel import gettext as _
 
-from pywebdriver import app, config, drivers
+from . import app, config, drivers
 
 
 @app.route("/", methods=['GET'])

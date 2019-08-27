@@ -62,6 +62,18 @@
                 </li>
                 {% endif %}
         {% endif %}
+        {% if driver =='easyctep' %}
+                {% if drivers_info[driver]['state']['status']  == 'connected' %}
+               <li class="list-group-item">
+                    <input type="text" class="form-control" id="ctep_price" placeholder="6543.21"/>
+                    <select id="ctep_payment_mode">
+                        <option value="card">Credit Card</option>
+                        <option value="check">Check</option>
+                    </select>
+                    <button type="button" onclick="ctep_status()" class="btn btn-link btn-xs">{{_('Test Communication')}}</button>
+                </li>
+                {% endif %}
+        {% endif %}
         {% if driver =='escpos' %}
                 {% if drivers_info[driver]['state']['status']  == 'connected' %}
                 <li class="list-group-item"><button type="button" onclick="print_status()" class="btn btn-link btn-xs">{{_('Print Status Receipt')}}</button></li>
@@ -87,6 +99,17 @@
                 data: {
                     'price': $('#telium_price').val(),
                     'payment_mode': $('#telium_payment_mode').val(),
+                },
+                timeout: 1000,
+            })
+        }
+        function ctep_status(){
+            $.ajax({
+                url: "ctep_status.html",
+                type: "POST",
+                data: {
+                    'price': $('#ctep_price').val(),
+                    'payment_mode': $('#ctep_payment_mode').val(),
                 },
                 timeout: 1000,
             })
