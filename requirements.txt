@@ -1,4 +1,4 @@
-jcconv
+#jcconv
 simplejson
 Flask
 Flask-Babel
@@ -8,7 +8,7 @@ pyserial
 pif
 Pillow
 netifaces
-pycups
+cups
 pymtp
 gunicorn>=19.8
 setuptools>=34
