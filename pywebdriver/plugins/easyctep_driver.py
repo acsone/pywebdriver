@@ -106,6 +106,8 @@ class CTEPDriver(ThreadDriver):
         self.transactions_count = 0
         self.transactions_cache = LimitedDict()
         self.service = TerminalManager.make_tcp_ip_service(self.service_port)
+        if self.cfg.get('certification_mode', False):
+            self.service.set_certification_mode(os.path.join(os.path.dirname(__file__), "easyctep_service.log"))
 
     def run(self):
         """
