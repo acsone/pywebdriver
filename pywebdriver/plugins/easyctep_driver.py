@@ -17,11 +17,11 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from collections import OrderedDict
 from configparser import NoOptionError
 import logging
 import time
-import os, sys
+import os
+import sys
 
 import simplejson as json
 from flask_cors import cross_origin
@@ -45,19 +45,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
-
-class LimitedDict(OrderedDict):
-    """ A dictionary that only keeps the last few added keys
-        This serves as a FIFO cache """
-    def __init__(self, size=20):
-        super(LimitedDict, self).__init__()
-        self._max_size = size
-
-    def __setitem__(self, key, value):
-        if len(self) == self._max_size:
-            self.popitem(last=False)
-        super(LimitedDict, self).__setitem__(key, value)
 
 
 class CTEPSaleResultListener(SaleResultListener):
@@ -159,12 +146,11 @@ class CTEPDriver(PaymentTerminalDriver):
         self.current_transactions = {}
         ctep_sale_result_listener._callback = self.set_result
 
-        self.service_port = self.config.get('service_port', 9000)
-        self.server_mode = True\
-            if self.config.get('server_mode', False) == 'True' else False
+        service_port = int(self.config.get('service_port', 9000))
         self.print_receipt = True\
             if self.config.get('print_receipt', False) == 'True' else False
-        self.service = CTEPTerminalManager.create_tcp_ip(self.service_port)
+        logger.info("starting CTEP service on port %s", service_port)
+        self.service = CTEPTerminalManager.create_tcp_ip(service_port)
         if self.config.get('certification_mode', False):
             self.service.set_certification_mode(
                 os.path.join(
@@ -280,7 +266,7 @@ def load_driver_config():
     driver_config = {}
     default_keys = (
         ('print_receipt', 'yes'),
-        ('server_mode', False),
+        ('service_port', 9000),
         ('certification_mode', False))
     # Put here mandatory config entries
     for key in ():
